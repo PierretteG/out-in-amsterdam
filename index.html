@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Out in Amsterdam</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container" ng-app="amsterdam" ng-controller="establishmentCtrl">
+
+        <h1>Out in Amsterdam</h1>
+
+
+        <form class="form-inline  md-form form-sm active-cyan active-cyan-2">
+            <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+            <input class="form-control form-control ml-3 mt-4 mb-4 w-75 col-lg-11" type="text" placeholder="Search" aria-label="Search"
+                ng-model="query">
+        </form>
+
+
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Post Code</th>
+                    <th>Address</th>
+                    <th>Start year</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="clickable" ng-repeat-start="x in establishments | filter: query">
+                    <td>
+                        <button ng-click="x.expanded = !x.expanded" expand>
+                            <span ng-bind="x.expanded ? '-' : '+'"></span>
+                        </button>
+                    </td>
+                    <td>{{x.title}}</td>
+                    <td>{{x.location.city}}</td>
+                    <td>{{x.location.zipcode}}</td>
+                    <td>{{x.location.adress}}</td>
+                    <td>{{x.dates.startdate}}</td>
+                </tr>
+                <tr ng-repeat-end ng-show="x.expanded">
+                    <td></td>
+                    <td colspan="3">
+                        <ul>{{x.title}}</ul>
+                        <ul>{{x.location.adress}}</ul>
+                        <ul>{{x.location.city}}</ul>
+                        <ul>{{x.location.zipcode}}</ul>
+                        <ul ng-repeat="link in x.urls">
+                            <a ng-href="{{link}}">{{link}}</a>
+                        </ul>
+                        <ul ng-repeat="url in x.media">
+                            <img ng-src="{{url.url}}">
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+    </div>
+    </table>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+The application is accessible through NodeJS http-server package.
